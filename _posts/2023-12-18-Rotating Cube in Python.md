@@ -5,9 +5,8 @@ categories: [PYTHON]
 published: true
 tags: [python, ascii, cube, mac]
 ---
-# Rotating Cube in Python <1>.
 
-### 0. 발단  
+# 0. 발단  
 시작은 유튜브에서 본 한 영상
 
 Link: [**회전하는 큐브**](https://www.youtube.com/watch?v=p09i_hoFdd0&t=36s)
@@ -18,12 +17,14 @@ Link: [**회전하는 큐브**](https://www.youtube.com/watch?v=p09i_hoFdd0&t=36
 
 ---
 
-### 1. 코드 뜯어보기
+# 1. 코드 뜯어보기
 물론 나는 C를 할 줄 모르기 때문에 Python으로 작성해볼 것이다.
 
 먼저 코드를 살펴보기 위해 [**원본 깃허브**](https://github.com/servetgulnaroglu/cube.c)로 이동
 
 대충 중요한 부분만 보자면
+
+## 1.1 - 3차원 좌표 계산
 
 ```
 float calculateX(int i, int j, int k) {
@@ -45,6 +46,7 @@ float calculateZ(int i, int j, int k) {
 터미널에 표현될 각각의 픽셀들의 3차원 위치를 계산해주는 코드다.   
 여기서 A,B,C는 회전하는 각도이고 이 값들을 일정하게 변화시키면 회전하는 모양을 볼 수 있다.
 
+## 1.2 - 큐브 표면 계산
 ```
 void calculateForSurface(float cubeX, float cubeY, float cubeZ, int ch) {
 x = calculateX(cubeX, cubeY, cubeZ);
@@ -72,6 +74,7 @@ yp = (int)(height / 2 + K1 * ooz * y);
 `xp`,`yp`   
 우리는 3차원 큐브를 실제로 2차원 평면에 출력해야 하기 때문에 3차원 좌표를 2차원으로 투영(projection) 해야한다.
 
+## 1.3 - 좌표 계산 및 깊이정보 입력
 ```
 idx = xp + yp * width;
 if (idx >= 0 && idx < width * height) {
@@ -93,6 +96,7 @@ if (idx >= 0 && idx < width * height) {
 
 이 것들을 반복문으로 하나씩 출력해주면 끝.
 
+## 1.4  - main
 ```
 int main() {
   printf("\x1b[2J");
@@ -144,7 +148,7 @@ printf("\x1b[H");
 
 ---
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fastro-yu.github.io%2Fposts%2FRotating-Cube-in-Python%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fastro-yu.github.io%2Fposts%2FRotating-Cube-in-Python%2F&count_bg=%2379C83D&title_bg=%23555555&icon=opsgenie.svg&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 
     
