@@ -717,7 +717,7 @@ $btn-mb: 0.5rem;
     width: 7rem;
     height: 7rem;
     overflow: hidden;
-    box-shadow: var(--avatar-border-color) 0 0 0 2px;
+    box-shadow: rgba(0, 0, 0, 0) 0 0 0 2px;
     transform: translateZ(0); /* fixed the zoom in Safari */
 
     img {
@@ -757,7 +757,7 @@ $btn-mb: 0.5rem;
 
   .site-subtitle {
     font-size: 95%;
-    color: var(--site-subtitle-color);
+    color: rgba(222, 222, 222, 0.99);
     margin-top: 0.25rem;
     word-spacing: 1px;
     -webkit-user-select: none;
