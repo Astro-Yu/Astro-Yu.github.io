@@ -1,5 +1,5 @@
 ---
-title: Rotating Cube in Pytion
+title: Rotating Cube in Python
 date: YYYY-MM-DD HH:MM:SS +09:00
 categories: [PYTHON]
 tags: [python, ascii, cube, mac]
