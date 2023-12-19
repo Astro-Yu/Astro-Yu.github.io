@@ -751,7 +751,7 @@ $btn-mb: 0.5rem;
       @extend %clickable-transition;
       @extend %sidebar-link-hover;
 
-      color: var(--site-title-color);
+      color: rgba(246, 254, 255, 99%);
     }
   }
 
@@ -791,21 +791,24 @@ $btn-mb: 0.5rem;
           font-size: 95%;
           opacity: 0.8;
           margin-right: 1.5rem;
+          color: rgba(222, 222, 222, 0.99)
         }
 
         span {
           font-size: 90%;
           letter-spacing: 0.2px;
+          color: rgba(222, 222, 222, 0.99)
         }
       }
 
       &.active {
         .nav-link {
-          color: var(--sidebar-active-color);
+          color: rgba(255, 255, 255, 0.99);
           background-color: var(--sidebar-hover-bg);
 
           span {
             opacity: 1;
+            color: rgba(255, 255, 255, 0.99);
           }
         }
       }
