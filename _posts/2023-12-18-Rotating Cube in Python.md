@@ -1,9 +1,10 @@
 ---
 title: Rotating Cube in Python <1>
-date: YYYY-MM-DD HH:MM:SS +09:00
+date: 2023-12-19 23:52:15 +09:00
 categories: [PYTHON]
 published: true
 tags: [python, ascii, cube, mac]
+image: /assets/img/spinningcube.png
 ---
 
 # 0. 발단  
@@ -60,15 +61,17 @@ yp = (int)(height / 2 + K1 * ooz * y);
 
 ```
 함수명을 보면 대충 할 역할이 보인다. `calculateForSurface`   
-즉 큐브의 표면을 계산하는 녀석이다. 아마 앞으로 큐브의 6면을 계산할 것으로 예상된다.
-
+즉 큐브의 표면을 계산하는 녀석이다. 아마 앞으로 큐브의 6면을 계산할 것으로 예상된다.   
+   
 못 보던 변수가 있다. `distanceFromCam`    
 간단하게 설명하자면 터미널 창으로부터 큐브까지의 거리다. 원본 코드를 보면 전역에서 설정하고 들어온다.
 
 이 값을 z 값에 더해주는걸로 보아 z 값이 흔하게 알려진 높이가 아니라, 깊이의 역할을 할 것 같다.
 
+
 `ooz`   
 단순히 표현되기로는 z값의 역수. 관측자로부터 안쪽에 있는 픽셀일수록 작은 값을 갖게된다.
+
 
 
 `xp`,`yp`   
@@ -88,6 +91,7 @@ if (idx >= 0 && idx < width * height) {
 이곳에서 `ooz`의 사용이 나온다.   
 `idx`로 원하는 위치의 캔버스에 선언 후, 내가 원하는 캔버스 범위 (첫 번째 if문) 에 있으면서, 앞에 가리는 픽셀이 없을 경우(두 번째 if문) `buffer[idx]`, `zBuffer[idx]`에 추가시킨다.   
 
+   
 즉    
 `buffer[idx]` = 실제 터미널에 표현될 위치.   
 `zBuffer[idx]` = 그 위치 픽셀의 깊이 정보.
