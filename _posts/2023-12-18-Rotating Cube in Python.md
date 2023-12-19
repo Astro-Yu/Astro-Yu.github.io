@@ -10,7 +10,7 @@ tags: [python, ascii, cube, mac]
 ### 0. 발단  
 시작은 유튜브에서 본 한 영상
 
-Link: [회전하는 큐브](yutubelink)
+Link: [**회전하는 큐브**](https://www.youtube.com/watch?v=p09i_hoFdd0&t=36s)
     
 꽤나 멋있다...
 
@@ -21,7 +21,7 @@ Link: [회전하는 큐브](yutubelink)
 ### 1. 코드 뜯어보기
 물론 나는 C를 할 줄 모르기 때문에 Python으로 작성해볼 것이다.
 
-먼저 코드를 살펴보기 위해 [**원본 깃허브**](original_github_link)로 이동
+먼저 코드를 살펴보기 위해 [**원본 깃허브**](https://github.com/servetgulnaroglu/cube.c)로 이동
 
 대충 중요한 부분만 보자면
 
@@ -142,11 +142,11 @@ printf("\x1b[H");
 
 다음은 이 코드를 python으로 변환시키고, 추가로 각 면마다 컬러도 넣어서 다채롭게 만들어 볼 계획이다.
 
+---
+
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fastro-yu.github.io%2Fposts%2FRotating-Cube-in-Python%2F&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
----
-[yutubelink] = https://www.youtube.com/watch?v=p09i_hoFdd0&t=36s   
-[original_github_link] = https://github.com/servetgulnaroglu/cube.c
+
     
 
 
