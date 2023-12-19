@@ -4,7 +4,7 @@ date: 2023-12-19 23:52:15 +09:00
 categories: [PYTHON]
 published: true
 tags: [python, ascii, cube, mac]
-image: /assets/img/spinningcube.png
+image: /Astro-Yu.github.io/assets/spinningcube.png
 ---
 
 # 0. 발단  
