@@ -73,7 +73,7 @@ theme_mode: # [light|dark]
 img_cdn: ""
 
 # the avatar on sidebar, support local or CORS resources
-avatar: "https://github.com/Astro-Yu/Astro-Yu.github.io/blob/main/assets/img/profile/code_garage.jpg"
+avatar: "/assets/img/profile/code_garage.jpg"
 
 # boolean type, the global switch for TOC in posts.
 toc: true
