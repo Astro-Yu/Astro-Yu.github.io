@@ -2,7 +2,7 @@
 title: Rotating Cube in Python
 date: YYYY-MM-DD HH:MM:SS +09:00
 categories: [PYTHON]
-published: false
+published: true
 tags: [python, ascii, cube, mac]
 ---
 # Rotating Cube in Python.
@@ -40,8 +40,8 @@ return k * cos(A) * cos(B) - j * sin(A) * cos(B) + i * sin(B);
 }
 
 ```
-터미널에 표현될 각각의 픽셀들의 3차원 위치를 계산해주는 코드다.
-수학에 관련된 코드이기 때문에 
+터미널에 표현될 각각의 픽셀들의 3차원 위치를 계산해주는 코드다.   
+수학에 관련된 코드이기 때문에 자세한 설명은 생략한다.
 
 ```
 void calculateForSurface(float cubeX, float cubeY, float cubeZ, int ch) {
@@ -62,8 +62,8 @@ if (idx >= 0 && idx < width * height) {
         }
     }
 }
-
 ```
+못 보던 변수가 있다 `distanceFromCam` 이녀석.
 
 
 
