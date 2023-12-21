@@ -13,19 +13,18 @@ image: /assets/spinningcube.png
 
 같아야 할 부분과 달라질 부분을 정리해보면...
 
-    _같아야 할 부분_
+***같아야 할 부분***
 
-      각종 수학 함수들
-      전역변수
+1. 각종 수학 함수들   
+2. 전역변수
 
-  등은 같아야 하겠고
 
-    _달라져야 할 부분_
+**_달라져야 할 부분_**
 
-      buffer(buffer, zBuffer)들의 선언방식
-      컬러를 넣기 위한 부분
+1. buffer(buffer, zBuffer)들의 선언방식   
+2. 컬러를 넣기 위한 부분
   
-  은 달라지게 해보겠다.
+이 점에 유의하며 옮겨보았다.
     
 # 3. Python으로 변경
   Link : [**여기에서 코드 전문 확인**](https://github.com/Astro-Yu/spinningCube)
@@ -35,7 +34,7 @@ image: /assets/spinningcube.png
   굳이 어려웠던 부분을 꼽자면 `buffer`와 `zBuffer`가 무엇을 뜻하는 것인지 헤맨 부분인데, [아무래도 이걸](https://en.wikipedia.org/wiki/Framebuffer) 말하는 것 같았다.
 
   그럼에도 달라진 부분을 소개하자면 원본 코드의 main 부분인데
-  ```Python
+  ```python
     while(True):
     
     buffer = [backgroundASCIICode] * (width * height)
@@ -58,7 +57,7 @@ image: /assets/spinningcube.png
   굳이 정신사납게 큐브가 3개나 돌아가도록 하진 않고 하나만 돌아가는 대신 큐브의 면 마다 다른 색을 배정했다.
 
 
-  ```Python
+  ```python
   '\033[95m' + '@' + '\033[0m'
   ```
 
