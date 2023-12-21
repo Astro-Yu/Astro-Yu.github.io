@@ -2,7 +2,7 @@
 title: Rotating Cube in Python <2>
 date: 2023-12-21 21:35:00 +09:00
 categories: [PYTHON]
-published: true
+published: false
 tags: [python, ascii, cube, mac]
 image: /assets/spinningcube.png
 ---
