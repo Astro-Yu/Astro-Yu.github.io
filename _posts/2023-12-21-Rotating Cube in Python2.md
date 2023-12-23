@@ -68,7 +68,7 @@ image: /assets/spinningcube.png
 # 4. 결과
 <iframe
   class="embed-video youtube lazyload"
-  src="https://youtu.be/UQ0sEv5Oq5k"
+  src="https://youtu.be/embed/UQ0sEv5Oq5k"
   title="YouTube video player"
   frameborder="0"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
