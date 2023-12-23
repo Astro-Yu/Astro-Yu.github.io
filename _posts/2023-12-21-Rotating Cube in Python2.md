@@ -2,7 +2,7 @@
 title: Rotating Cube in Python <2>
 date: 2023-12-21 21:35:00 +09:00
 categories: [PYTHON]
-published: false
+published: true
 tags: [python, ascii, cube, mac]
 image: /assets/spinningcube.png
 ---
@@ -64,6 +64,25 @@ image: /assets/spinningcube.png
   이처럼 표현하고자 하는 Ascii 문자를 설정하고, 앞 뒤로 원하는 색에 대한 정보를 입력해주면 된다.   
 
   나는 [여기서](https://sosomemo.tistory.com/59) 출력에 색 입히는 법을 보고 했다. 문자 뿐만 아니라 배경에도 색을 넣을 수 있다고 하니 꽤나 유용할지도?
+
+# 4. 결과
+<iframe
+  class="embed-video youtube lazyload"
+  src="https://youtu.be/UQ0sEv5Oq5k"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+  꽤나 잘 돌아간다.
+  각 면에 색도 잘 입혀졌고, 뒷면이 보이는 부분을 더 잘 볼 수 있어서 큐브에 입체감을 더해주는듯.   
+  
+  원래대로라면 뒷면이 아예 안보여야 정상이지만, 코드 상에서 앞면 픽셀 위치와 뒷면 픽셀 위치가 완전하게 커버되지는 않는 모양이다.
+
+  아무튼 생각보다 잘 돼서 기분이 좋았다. 
+
+
 
 
 
