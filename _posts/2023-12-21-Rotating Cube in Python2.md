@@ -69,7 +69,7 @@ image: /assets/spinningcube.png
 <iframe
   class="embed-video youtube"
   loading="lazy"
-  src="https://www.youtube.com/embed/{{UQ0sEv5Oq5k}}"
+  src="https://www.youtube.com/embed/UQ0sEv5Oq5k"
   title="YouTube video player"
   frameborder="0"
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
