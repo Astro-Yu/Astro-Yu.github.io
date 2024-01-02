@@ -4,7 +4,7 @@ date: 2024-01-03 05:40:00 +09:00 # 시간
 categories: [PYTHON]
 published: true
 tags: [python, flask, web, backend]
-image: assets/flask.png
+image: /assets/flask.png
 ---
 # 0. 목표
 
