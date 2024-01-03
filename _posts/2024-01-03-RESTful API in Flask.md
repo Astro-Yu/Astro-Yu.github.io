@@ -1,19 +1,19 @@
 ---
-title: (Flask) RESTful API 구현 <1>
+title: "[Flask] RESTful API 구현 <1>"
 date: 2024-01-03 05:40:00 +09:00 # 시간
 categories: [PYTHON]
 published: true
-tags: [python, flask, web, backend]
+tags: [python, flask, web, backend, server]
 image: /assets/flask.png
 ---
-# 0. 목표
+## 0. 목표
 
 - Python Flask를 활용해 작동하는 RESTful API를 제작한다.
 - 웹 기술에 대해 알아보고 이해한다.
 
 ---
 
-# 1. 왜 Flask인가?
+## 1. 왜 Flask인가?
 
 친구랑 간단하게 웹 프로젝트를 진행하고 있는데 웹 백엔드로 무엇을 써야할지 고민했다.
 
@@ -22,18 +22,18 @@ image: /assets/flask.png
 그렇다면 많은 기능을 지원하지만 본격적이고 무거운(사실 무겁다고만 들은) Django 보단 가볍게 공부해보고 실행할 Flask가 적합하다고 판단했다. 대충 검색해서 찾아본 Flask의 장점은…
 
 1. 가볍다.
-2. 코드가 짧고 쉽다!! ***(중요)***
+2. 코드가 짧고 쉽다!! <span style="color:red"> ***(중요)*** </span>
 3. 마이크로 서비스에 적합하다. (잘 모름)
 
 정도인데 뭐 간단하게 하려면 적당해 보였다. 애초에 Django나 Spring처럼 너무 본격적이면 다루기 부담스럽다.
 
 ---
 
-# 2. RESTful API가 뭔데
+## 2. RESTful API가 뭔데
 
 그래서 RESTful 한 API가 뭔데? REST와 API를 나누어서 알아보자.
 
-## 2.1 REST
+### 2.1 REST
 
 ***REST*** 는 Representational State Transfer의 약자로 API의 작동방식에 특정 조건을 부여하여 자원을 표현하는 방식이라고 한다.
 
@@ -42,7 +42,6 @@ image: /assets/flask.png
 그래서 구체적으로 뭘 요구하냐? 해당 자원들에 대해 CRUD를 적용해 자원에 대한 행위를 4가지로 표현하게 한다. 여기서 CRUD란
 
 > **C** = **C**reate. 리소스를 생성하는 행위를 한다.
-> 
 > 
 > **R** = **R**ead. 리소스를 조회하고, 정보를 가져온다.
 > 
@@ -53,7 +52,7 @@ image: /assets/flask.png
 
 이고 이것들을 Flask에선 각각 POST, GET, PUT, DELETE로 제어한다.
 
-## 2.2 API
+### 2.2 API
 
 API란 Application Programming Interfaced의 약자로 응용 프로그램에서 사용 가능하도록 운영체제나 프로그래밍 언어로 제어하게 만든 인터페이스를 말한다.
 
@@ -65,11 +64,13 @@ API란 Application Programming Interfaced의 약자로 응용 프로그램에서
 
 그림으로 표현해보자면 다음과 같다.
 
+![](/assets/RESTAPI.jpeg)
+
 위에서 설명한 REST한 규칙을 API에 적용시켜 확장성을 추구한것이 RESTful API라고 볼 수 있다. 애초에 요즘 API들은 다 REST 규칙을 따르게 만들어진다고 하는듯.
 
 ---
 
-# 3. 구체적으로 할 일
+## 3. 구체적으로 할 일
 
 당장 생각나는건 적당한 input을 받고, 모델에서 input을 처리 후 반환되는 값을 다시 표시하는 정도를 목표로 했다. 더 생각나는 점이 있으면 추가하면 되고…
 
