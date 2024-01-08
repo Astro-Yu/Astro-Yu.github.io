@@ -1,10 +1,10 @@
 ---
 title: "[백준] 재귀, 백트래킹 <1>"
-date: 2024-01-04 19:23:00 +09:00 # 시간
+date: 2024-01-08 19:23:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
-tags: [python, algorithm, backtracking, recursion, baekjun]
-image: /assets/flask.png
+tags: [python, algorithm, backtracking, recursion, baekjoon]
+image: /assets/baekjun.png
 ---
 ## #15649 순열
 
