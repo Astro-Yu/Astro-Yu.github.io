@@ -1,7 +1,7 @@
 ---
 title: "[Flask] RESTful API 구현 <2>"
 date: 2024-01-03 21:27:00 +09:00 # 시간
-categories: [PYTHON]
+categories: [Flask]
 published: true
 tags: [python, flask, web, backend, server]
 image: /assets/flask.png
