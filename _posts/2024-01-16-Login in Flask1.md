@@ -124,14 +124,14 @@ def index():
 ```html
 <html>
    <body>
-      {% if not userid %}
-         <button type="button" class="login-button" onclick="location.href='/login'">Login</button>
-      {% else %}
-         <button type="button" class="logout-button" onclick="location.href='/logout'">Logout</button>
-
-         <h1>Welcome, {{ userid }}!</h1>
-    {% endif %}
-
+      {% raw %}
+         {% if not userid %}
+            <button type="button" class="login-button" onclick="location.href='/login'">Login</button>
+         {% else %}
+            <button type="button" class="logout-button" onclick="location.href='/logout'">Logout</button>
+            <h1>Welcome, {{ userid }}!</h1>
+         {% endif %}
+      {% endraw %}
    </body>
 </html>
 ```
