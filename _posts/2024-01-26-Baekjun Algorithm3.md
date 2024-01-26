@@ -132,3 +132,8 @@ i = 2, col = [0,1,3,0,0]
 그렇다면 else 조건으로 진입한 후 하위 노드를 테스트한다.
 
 이런 flow로 유망하지 못한 조건들을 쳐내면서 진행하는 것이 된다. 만약 이해되지 않는다면 실제로 그려보면서 천천천히 이해해보는 것을 추천한다.
+
+출처 : 
+https://www.youtube.com/watch?v=HRwFgtiqHH0
+
+https://www.youtube.com/watch?v=z4wKvYdd6wM&t=900s
