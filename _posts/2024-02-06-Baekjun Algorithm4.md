@@ -3,7 +3,7 @@ title: "[백준] DP <1>"
 date: 2024-02-06 20:33:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
-tags: [python, algorithm, dp, dynamic programing]
+tags: [python, algorithm, dp, dynamicprograming]
 image: /assets/baekjun.png
 ---
 # 동적 프로그래밍 (Dynamic Programing)
