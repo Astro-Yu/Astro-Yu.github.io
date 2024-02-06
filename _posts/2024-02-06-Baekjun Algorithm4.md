@@ -5,6 +5,7 @@ categories: [Algorithm]
 published: true
 tags: [python, algorithm, dp, dynamicprograming]
 image: /assets/baekjun.png
+use_math: true
 ---
 # 동적 프로그래밍 (Dynamic Programing)
 동적 프로그래밍이란 **이전에 계산한 값을 저장해 둔 후 재활용**하는 방법이다.
@@ -20,11 +21,11 @@ image: /assets/baekjun.png
 
 피보나치 수는 대표적인 동적 프로그래밍의 예 이다. 
 
-피보나치수는 현재 값을 이전 값과 이전이전값의 합으로 나타낼 수 있다. 즉
+피보나치수는 현재 값을 이전 값과 이전이전값의 합으로 나타낼 수 있다. 즉   
 
-$fib(n) = fib(n-1) + fib(n-2)$
+$fib(n) = fib(n-1) + fib(n-2)$ 
 
-이다.
+이다.   
 
 점화식에 따라 피보나치 수열의 초기 값은 최소 2개가 필요하기 때문에 fib(0) = 0, fib(1) = 1로 두고 시작해야한다. 
 
