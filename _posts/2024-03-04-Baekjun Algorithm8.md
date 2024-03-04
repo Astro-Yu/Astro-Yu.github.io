@@ -49,7 +49,7 @@ use_math: true
 
 ## 2. 코드
 
-https://www.acmicpc.net/problem/1991
+[1991번: 트리 순회](https://www.acmicpc.net/problem/1991)
 
 기본적인 이진트리의 각각 순회 순서를 구현할 수 있는지 확인하는 문제이다.
 

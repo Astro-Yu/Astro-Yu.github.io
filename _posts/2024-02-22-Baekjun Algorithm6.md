@@ -23,7 +23,7 @@ $O((V+E)logV)$
 
 아래 문제를 예시로 들어 설명해보겠다.
 
-[1753번: 최단경로](https://www.acmicpc.net/problem/1753)
+[1753번 최단경로](https://www.acmicpc.net/problem/1753)
 
 1. 방향이 주어져있는 가중치(거리)와 그 노드들이 주어진다. 그림으로 표현하면 아래와 같다.
    ![](/assets/dijkstra.jpeg)
