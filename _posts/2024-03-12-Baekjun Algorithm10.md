@@ -70,17 +70,18 @@ use_math: true
     | --- | --- | --- | --- | --- | --- |
     | inf | 0 | 10 | 5 | 60 | inf |
 3. 다음번 이동 가능한 노드들에 대해서도 전부 확인한다.
-    1. 1 → 2의 경우 10만큼 이동 후 2 → 3 으로 이동하는데 -30이 걸리므로 3은 -20이 된다. 이때 3의 최단경로는 5이기 때문에 -20이 더 작으므로 갱신 가능하다.
-    2. 1 → 3의 경우 5의 가중치에 4 와 5로 이동 가능하므로 1 → 3 → 4의 경우 합 25, 1 → 3 → 5 의 경우 합 5 이다. 둘 다 현재 테이블의 최단경로보다 작으므로 갱신 가능하다.
-    3. 1 → 4의 경우 현재 60의 가중치에 5로 이동하는 -10이 소모되어 50의 가중치로 이동 가능하다.
+    a. 1 → 2의 경우 10만큼 이동 후 2 → 3 으로 이동하는데 -30이 걸리므로 3은 -20이 된다. 이때 3의 최단경로는 5이기 때문에 -20이 더 작으므로 갱신 가능하다.
+    b. 1 → 3의 경우 5의 가중치에 4 와 5로 이동 가능하므로 1 → 3 → 4의 경우 합 25, 1 → 3 → 5 의 경우 합 5 이다. 둘 다 현재 테이블의 최단경로보다 작으므로 갱신 가능하다.
+    c. 1 → 4의 경우 현재 60의 가중치에 5로 이동하는 -10이 소모되어 50의 가중치로 이동 가능하다.
     
     이때 a b c 중 무엇이 먼저 일어나든 항상 최소값만 선택하기 때문에 상관이 없다.
+
+    코드 상에서는 모든 노드에 대해서 확인하기 때문에 5번 노드 에서도 이동이 이루어진다. 하지만 5번 노드는 아직 inf 인 상태이기 때문에 5번 노드에서 이동할 수 있는 노드들은 갱신이 이루어지지 않는다. (inf가 inf 보다 작아지지 않으므로)
     
     | 0 | 1 | 2 | 3 | 4 | 5 |
     | --- | --- | --- | --- | --- | --- |
     | inf | 0 | 10 | -20 | 25 | 5 |
 4. 해당 과정을 `노드의 갯수 - 1` 회 만큼 반복해준다.
-    
     
     | 0 | 1 | 2 | 3 | 4 | 5 |
     | --- | --- | --- | --- | --- | --- |
@@ -100,32 +101,32 @@ read = sys.stdin.readline
 node_count, edge_count = map(int,read().split())
 graph = [[] for _ in range(node_count + 1)]
 distance = [math.inf for _ in range(node_count + 1)]
-infinit_cycle = False
+infinit_cycle = False # 음의 순환을 감지하는 역할
 
 for _ in range(edge_count):
     u, v, w = map(int,read().split())
 
-    graph[u].append((v, w))
+    graph[u].append((v, w)) # 그래프의 인덱스에 해당 노드에서 이동 가능한 노드들을 입력
 
 def bellman_ford(start):
     global infinit_cycle
-    distance[start] = 0
+    distance[start] = 0 # 출발 노드 0으로 초기화
 
-    for i in range(node_count):
-        for j in range(1,node_count+1):
+    for i in range(node_count): # 사이클 반복
+        for j in range(1,node_count+1): # 그래프 상의 모든 간선에 대해 확인한다.
             for way in graph[j]:
                 desti = way[0]
                 weight = way[1]
-                if distance[desti] > distance[j] + weight:
-                    if i == node_count-1:
+                if distance[desti] > distance[j] + weight: # 계산 결과가 기존 가중치보다 작은 경우
+                    if i == node_count-1: # 마지막 cycle에서 갱신이 이루어지는 경우
                         infinit_cycle = True
                         break
-                    distance[desti] = distance[j] + weight
+                    distance[desti] = distance[j] + weight # 최단거리 그래프를 갱신
    
 bellman_ford(1)
 
 for answer in distance[2:]:
-    if infinit_cycle:
+    if infinit_cycle: # 음의 사이클이 있다면 -1 출력
         print(-1)
         break
     else:
