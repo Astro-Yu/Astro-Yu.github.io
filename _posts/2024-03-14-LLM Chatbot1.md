@@ -3,7 +3,7 @@ title: "[AI] LLM 기반 챗봇 0 : 소개"
 date: 2024-03-14 04:01:00 +09:00
 categories: [AI]
 published: true
-tags: [python, ai, llm, chatbot]
+tags: [python, ai, llm, chatbot, langchain]
 image: /assets/langchain.webp
 use_math: true
 ---
