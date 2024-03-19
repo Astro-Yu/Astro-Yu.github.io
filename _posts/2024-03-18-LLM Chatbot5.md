@@ -76,6 +76,8 @@ print(char_list)
 
 ![](/assets/text1.png)
 
+나눈 청크들의 글자 길이를 출력해봤다. 기준은 50자이지만, 50자를 넘는 청크를 심심치않게 찾아볼 수 있다.
+
 ### 3.2 RecursiveCharacterTextSplitter
 
 ```python
@@ -101,9 +103,9 @@ for i in range(len(texts)):
 print(char_list)
 ```
 
-같은 문서에 대해 같은 설정으로 청크를 나누었다. 실행 결과를 보면 칼 같이 50개를 넘는 청크가 하나도 없는 것을 볼 수 있다.
-
 ![](/assets/text2.png)
+
+같은 문서에 대해 같은 설정으로 청크를 나누었다. 실행 결과를 보면 칼 같이 50개를 넘는 청크가 하나도 없는 것을 볼 수 있다.ㄴ
 
 ## 4. 기타 Splitters
 
@@ -122,9 +124,8 @@ sp = RecursiveCharacterTextSplitter.get_separators_for_language(Language.PYTHON)
 print(sp)
 ```
 
-파이썬에서 사용하는 구분자를 가져와 봤다. class,  def, 줄바꿈 등이 있다.
-
 ![](/assets/text3.png)
+파이썬에서 사용하는 구분자를 가져와 봤다. class,  def, 줄바꿈 등이 있다.
 
 ## 5. 토큰 단위 텍스트 분할기
 
