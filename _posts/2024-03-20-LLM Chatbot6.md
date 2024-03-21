@@ -1,5 +1,5 @@
 ---
-title: "[AI] LLM 기반 챗봇 5 : Text Splitters"
+title: "[AI] LLM 기반 챗봇 5 : Text Embeddings"
 date: 2024-03-20 20:17:00 +09:00
 categories: [AI]
 published: true
@@ -98,7 +98,7 @@ print(len(embeddings[0]))
 
 이때 벡터간 유사도를 판별하는 함수는 **cosine similarity**이다. 코사인 유사도에 대한 정보는 아래 링크에서 확인해 볼 수 있다.
 
-[코사인 유사도]([https://ko.wikipedia.org/wiki/코사인_유사도](https://ko.wikipedia.org/wiki/%EC%BD%94%EC%82%AC%EC%9D%B8_%EC%9C%A0%EC%82%AC%EB%8F%84))
+[코사인 유사도](https://ko.wikipedia.org/wiki/%EC%BD%94%EC%82%AC%EC%9D%B8_%EC%9C%A0%EC%82%AC%EB%8F%84)
 
 ```python
 from langchain_community.embeddings import OpenAIEmbeddings
