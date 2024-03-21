@@ -1,5 +1,5 @@
 ---
-title: "[AI] LLM 기반 챗봇 5 : Text Embeddings"
+title: "[AI] LLM 기반 챗봇 6 : Vectorstores"
 date: 2024-03-20 19:40:00 +09:00
 categories: [AI]
 published: true
