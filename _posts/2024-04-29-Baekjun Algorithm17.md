@@ -1,154 +1,139 @@
 ---
 title: "[백준] DP<4: LCS>"
-date: 2024-04-23 19:40:00 +09:00 # 시간
+date: 2024-04-29 19:21:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
-tags: [python, algorithm, dp, lcs]
+tags: [python, algorithm, divide&conquer]
 image: /assets/baekjun.png
 use_math: true
 ---
-## 1. 최장 공통 부분 수열(LCS)
+## 1. 분할 정복 알고리즘 소개
 
-LCS(Longest Common Subsequence)는 두 수열이 주어졌을 때, 모두의 부분 수열이 되는 수열 중 가장 긴 것을 찾는 문제이다.
+분할 정복이란 같은 모양의 거대한 문제를 잘게 잘라서 푸는 문제이다.
 
-예를 들어, **ACA**Y**K**P 와 C**A**P**CAK**의 LCS는 ACAK가 된다.
+- 분할: 문제를 더 이상 나눌 수 없을 때까지 동일한 유형으로 나눈다.
+- 정복: 가장 작은 단위의 문제를 해결한다.
+- 조합: 해결한 문제들을 원래 문제로 합친다.
 
-## 2. DP를 활용한 LCS 알고리즘 풀이.
+즉 해당 알고리즘은 프랙탈처럼 전체의 꼴이 부분의 꼴과 같을 시 유용하다.
 
-LCS 문제도 DP로 풀이 가능하다. 2차원 dp table을 준비해보자.
+## 2. 코드
 
-|  | 0 | A | C | A | Y | K | P |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| C | 0 |  |  |  |  |  |  |
-| A | 0 |  |  |  |  |  |  |
-| P | 0 |  |  |  |  |  |  |
-| C | 0 |  |  |  |  |  |  |
-| A | 0 |  |  |  |  |  |  |
-| K | 0 |  |  |  |  |  |  |
+### 2.1 색종이 만들기
 
-계산을 위해 열과 행에 0으로 이루어진 margin을 한 줄씩 넣어준다.
+[백준 2630번: 색종이 만들기](https://www.acmicpc.net/problem/2630)
 
-이때 table의 각 숫자가 의미하는 값은 해당 인덱스까지의 문자열끼리 비교했을때, 가장 긴 LCS의 길이를 뜻한다.
+분할 정복을 이해할 수 있는 대표적인 문제이다.
 
-예를 들어 table[3][3] 의 값은 “ACA” 인 문자열과 “CAP” 인 문자열의 LCS인 2가 들어와야 할 것이다. (”CA”가 LCS가 된다.)
+한 변의 길이가 2의 제곱수로 주어지고(2, 4, 8, …) 파란색과 흰색이 섞인 종이가 주어진다. 종이를 일정한 규칙에 따라 자르고, 종이의 모든 칸이 한 가지 색일 경우 더 이상 나누지 않는다. 그렇게 나누었을 때 파란색 종이의 숫자와 흰색 종이의 숫자를 센다. 즉 해당 알고리즘을 나누면 다음과 같다.
 
-그렇다면 점화식은 어떻게 구성해주어야 할까?
+1. 종이를 확인해 한 가지 색으로 이루어져 있는지 확인한다.
+2. 한 가지 색으로 이루어져 있으면 해당 색의 count를 늘린다.
+3. 한 가지 색이 아니라면 종이를 4등분한다.
+4. 4등분한 각각의 종이에 따라 1 ~ 3의 과정을 반복한다.
 
-이 때는 2가지 경우를 나누어 준다.
-
-1. 비교하는 인덱스의 문자가 다를 경우.
-    
-    비교하는 인덱스의 문자가 다르다면 해당 문자열 이전까지의 LCS를 그대로 이어주면 된다.
-    
-    `dp[i][j] = max(dp[i-1][j], dp[i][j-1])` 
-    
-2. 비교하는 인덱스의 문자가 같을 경우.
-    
-    비교하는 인덱스의 문자가 같다면 같은 문자열을 제외한 바로 앞까지의 문자들의 LCS에 +1을 해주면 된다.
-    
-    `dp[i][j] = dp[i-1][j-1] + 1`
-    
-
-이와 같은 점화식으로 table을 채우면 다음과 같아진다.
-
-|  | 0 | A | C | A | Y | K | P |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| C | 0 | 0 | 1 | 1 | 1 | 1 | 1 |
-| A | 0 | 1 | 1 | 2 | 2 | 2 | 2 |
-| P | 0 | 1 | 1 | 2 | 2 | 2 | 3 |
-| C | 0 | 1 | 2 | 2 | 2 | 2 | 3 |
-| A | 0 | 1 | 2 | 3 | 3 | 3 | 3 |
-| K | 0 | 1 | 2 | 3 | 3 | 4 | 4 |
-
-이때 table의 가장 마지막 요소를 검사한다면 LCS의 길이를 알 수 있다.
-
-### 2.1 LCS가 어떤 문자로 이루어져 있는지 찾는 방법.
-
-완성된 dp table을 재귀를 통해 재탐색하면 LCS가 어떤 문자로 이루어진지 확인 가능하다.
-
-LCS의 길이를 찾을때 사용한 점화식을 다시 생각해보자.
-
-두 문자가 다르다면 왼쪽 혹은 위쪽과 값이 같다.
-
-두 문자가 같다면 왼쪽 혹은 위쪽과 값이 같을 수가 없다.
-
-즉 dp table의 가장 마지막 요소부터 시작해 왼쪽, 위쪽과 값이 모두 다르다면 해당 문자를 저장하면 된다.
-
-이때 뒤에서부터 탐색하므로 출력하기 전에 뒤집어주면 된다.
-
-## 3. 코드
-
-[9251번 : LCS](https://www.acmicpc.net/problem/9251)
+동일한 과정을 반복하므로 재귀함수를 쓰는 것이 적절하다.
 
 ```python
 import sys
 read = sys.stdin.readline
 
-string_1 = list(read().strip())
-string_2 = list(read().strip())
+paperSize = int(read())
 
-dp = [[0 for _ in range(len(string_1)+1)] for _ in range(len(string_2)+1)]
+paper = [list(map(int,read().split())) for _ in range(paperSize)]
 
-for i in range(1, len(string_2)+1):
-    for j in range(1, len(string_1)+1):
-        if string_1[j-1] != string_2[i-1]:
-            dp[i][j] = max(dp[i][j-1], dp[i-1][j])
-        else: dp[i][j] = dp[i-1][j-1] + 1
-        
-print(dp[-1][-1])
-```
+blueCount = 0
+whiteCount = 0
 
-[9252번 : LCS2](https://www.acmicpc.net/problem/9252)
+# 종이가 전부 파란색으로 이루어졌다면 1,
+# 종이가 전부 흰색으로 이루어져있다면 0을 리턴
+def checkColor(paper,paperLength):
+    total_sum = 0
+    for idx in range(paperLength):
+        total_sum += sum(paper[idx])
+    
+    return total_sum / paperLength**2
+    
+def divideAndConquer(paper, paperSize):
+    global blueCount, whiteCount
 
-```python
-import sys
-read = sys.stdin.readline
-sys.setrecursionlimit(10**5)
+    color = checkColor(paper, paperSize) # 파란색이면 1, 흰색이면 0
 
-string1 = [0] + list(read().strip())
-string2 = [0] + list(read().strip())
-
-dp = [[0] * len(string1) for _ in range(len(string2))]
-
-lcs_string = []
-
-def get_lcs(str1, str2):
-    for i in range(1, len(str2)):
-        for j in range(1, len(str1)):
-            if str2[i] == str1[j]:
-                dp[i][j] = dp[i-1][j-1] + 1
-            else:
-                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-
-start_i, start_j = len(string2)-1, len(string1)-1
-
-def find_string(dp, i, j):
-    check1 = dp[i-1][j]
-    check2 = dp[i][j-1]
-
-    if dp[i][j] == 0: # 종료조건
+    if paperSize == 1: # 종료조건
+        if color == 1:
+            blueCount += 1
+        elif color == 0:
+            whiteCount += 1
         return
 
-    if dp[i][j] == check1:
-        find_string(dp, i-1, j)
-    
-    elif dp[i][j] == check2:
-        find_string(dp, i, j-1)
-    
+    if color == 1:
+        blueCount += 1
+    elif color == 0:
+        whiteCount += 1
     else:
-        lcs_string.append(string2[i])
-        find_string(dp, i-1, j-1)
+        paperSize //= 2
+        # 종이를 4등분한다.
+        top_left = [row[:paperSize] for row in paper[:paperSize]]
+        top_right = [row[paperSize:] for row in paper[:paperSize]]
+        bottom_left = [row[:paperSize] for row in paper[paperSize:]]
+        bottom_right = [row[paperSize:] for row in paper[paperSize:]]
 
-get_lcs(string1, string2)
-find_string(dp, start_i, start_j)
-lcs_string.reverse()
+        divideAndConquer(top_left, paperSize)
+        divideAndConquer(top_right, paperSize)
+        divideAndConquer(bottom_left, paperSize)
+        divideAndConquer(bottom_right, paperSize)
 
-length = dp[-1][-1]
-print(length)
-if length != 0:
-    print(''.join(lcs_string))
+divideAndConquer(paper, paperSize)
+print(whiteCount)
+print(blueCount)
 ```
 
-앞의 코드와 알고리즘은 같지만, 문자를 역추적하는 과정이 포함됐다.
+### 2.2 곱셈
+
+[백준 1629번: 곱셈](https://www.acmicpc.net/problem/1629)
+
+자연수 A를 B번 거듭제곱한 숫자를 C로 나눈 나머지를 출력하는 문제이다.
+
+단순히 반복문으로 A를 N회 곱하는 코드를 만들었다면 $O(N)$의 시간복잡도가 걸리지만 지수법칙을 활용한 분할정복을 사용한다면 $O(logN)$에 풀이 가능하다.
+
+예를 들어서 $A^8$를 구한다고 해보자. 
+
+지수법칙을 활용하면 $A^8 = A^4 * A^4$ 가 된다. 
+
+$A^4 = A^2 * A^2$ 가 된다.
+
+$A^2 = A * A$ 가 된다.
+
+지수가 홀수라면 어떻게 계산할까?
+
+$A^7 = A^3 * A^3 * A$ 가 된다.
+
+$A^9 = A^4 * A^4 * A$ 가 된다.
+
+즉 거듭제곱 식을 점화식으로 바꿔 표현한다면 다음과 같다.
+
+A^B = A^(B/2) * (B/2) (B가 짝수인 경우)
+
+A^B = A^(B//2) * (B//2) * A (B가 홀수인 경우)
+
+```python
+import sys
+read = sys.stdin.readline
+
+A, B, C = map(int,read().split())
+
+def fpow(c,n):
+    if n == 1:
+        return c % C
+    else:
+        if n % 2 == 0:
+            x = fpow(c, n // 2)
+            return x * x % C
+        else:
+            x = fpow(c, n // 2)
+            return x * x * c % C
+        
+print(fpow(A,B))
+```
+
+계산 도중에도 충분히 숫자가 커질 수 있으므로 결과마다 C로 나눠주면 된다.
