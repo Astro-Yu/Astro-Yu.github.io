@@ -1,5 +1,5 @@
 ---
-title: "[백준] DP<4: LCS>"
+title: "[백준] 분할정복"
 date: 2024-04-29 19:21:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
