@@ -7,110 +7,158 @@ tags: [python, algorithm, queue, heap]
 image: /assets/baekjun.png
 use_math: true
 ---
-[백준 2482번: 색상환](https://www.acmicpc.net/problem/2482)
-## 1. 문제 소개
+## 1. 우선순위 큐
 
-주어진 N개의 색상에 대하여 서로 인접하지 않게 K개를 뽑는 문제이다. 이때 주어진 N개의 색상은 원형으로 주어져 있다. 즉 N = 8이라고 주어졌을 경우 1번 색과 8번 색은 서로 인접하는 경우인 것이다.
+큐(Queue) 란 가장 먼저 들어온 데이터가 제일 먼저 빠지는 **FIFO**(First In First Out) 형식의 자료구조이다.
 
-예를 들어 N = 4, K = 2가 주어지면 [1,3], [2,4] 의 2개의 경우의 수를 고를 수 있으므로 답은 2다.
+큐에서는 데이터를 pop 할때 가장 먼저 들어온 순서 기준으로 빠지게 되지만, **우선순위 큐**에서는 들어온 순서가 아닌, 가장 우선순위가 높은 데이터부터 빠지게 된다. 표로 정리하면 다음과 같다.
 
-N = 4, K = 3 이 주어진다면 가능한 조합의 수는 없다.
+| 자료구조 | 빠지는 순서 |
+| --- | --- |
+| Stack | 가장 나중에 들어온 데이터 |
+| Queue | 가장 먼저 들어온 데이터 |
+| Priority Queue | 가장 우선순위가 높은 데이터 |
 
-## 2. 풀이 알고리즘 with DP
+## 2. Python에서의 구현
 
-DP의 유용함은 기어이 조합 문제에도 마수를 뻗치기 시작했다.
+파이썬에서는 `heapq` 모듈에 의해 최소 힙을 기본으로 제공하고 있다.
 
-문제를 본다면 주어진 N개에 대하여 K개를 고르는(순서없이) 문제이기 때문에 조합을 사용할 수 있을 것 같다.
-
-먼저 DP table을 설계해보자.
-
-2차원 dp를 준비하고 각각의 열과 행을 다음과 같이 설정해준다.
-
-dp[고를 수 있는 색의 수][고를 색의 수] = 경우의 수
-
-이때 경우의 수는 원형이 아닌 직선에서의 경우의 수를 가정한다.
-
-초기값(dp[1][0], dp[1][1] = 1)을 설정해주고, 반복문으로 값을 채워준다.
+최소 힙에서는 크기가 가장 작은 원소부터 반환한다.
 
 ```python
-for i in range(2 ,N+1):
-    for j in range(1, N+1):
-        if j == 1: # 색을 하나만 고르는 경우는 전체 색상 갯수와 같음.
-            dp[i][j] = i
-        
-        elif i > j:
-            # i번째 색을 선택하지 않는 경우: i-1개의 색 중에서 j개를 선택하는 경우와 같음
-            # i번째 색을 선택하는 경우: i-2개의 색 중에서 j-1개를 선택하는 경우의 수
-            dp[i][j] = dp[i-2][j-1] + dp[i-1][j]
+import heapq
+
+# heappush: 힙의 형태를 유지하면서 리스트에 원소를 추가한다.
+heapq.heappush(list, element)
+
+# heappop: 힙의 형태를 유지하면서 가장 작은 원소를 pop하고 반환한다.
+heapq.heappop(list)
+
+# heapify: 이미 존재하는 list를 heap으로 변환한다.
+heaq.heapify(list)
 ```
 
-이때 고를 색의 수(j 인덱스)가 1이라면 전체 색의 수를 한 가지씩 고를 수 있으므로 경우의 수는 i가 된다.
+### 2.1 최대 힙
 
-이외의 경우의 수는 점화식을 따라준다.
+약간의 트릭을 사용한다면 가장 큰 원소부터 정렬이 가능하다.
 
-`dp[i][j] = dp[i-2][j-1] + dp[i-1][j]`
+```python
+import heapq
 
-이때, 조합의 수학적 점화식을 알고 있다면 `dp[i-2][j-1]`이 아닌 `dp[i-1][j-1]`이 와야한다고 생각할 수도 있다.
+list = [1,2,3,4,5,6]
+pq = []
 
-하지만 일반적인 조합의 식과 이 문제에서의 조합의 식은 조건이 다르다.
+# 기존 최소 힙
+for num in list:
+	heapq.heappush(pq, i)
+	
+# 트릭을 사용한 최대 힙
+for num in list:
+	heapq.heappush(pq, (-i, i))
 
-***우리는 인접한 색상을 고를 수 없다.***
+# 큰 원소부터 출력
+for _ in range(len(list)):
+	current = heapq.heappop(pq)
+	
+	print(current[1])
+```
 
-즉 i번째 색을 선택했을때, 반드시 i-1 번째의 색은 고를 수 없으므로 남은 i-2개의 색상 중에서 j-1개를 뽑는 경우의 수가 남는다.
+튜플이 heapq에 들어오게 되면 튜플의 0번 인덱스를 기준으로 정렬하게 된다.
 
-해당 코드를 통해 ***직선에서*** 인접하지 않는 경우의 수를 만들 수 있다.
+이 성질을 이용해 가장 -(음수)를 붙여 정렬시키면 가장 앞에 오는 원소가 가장 작은 값을 가지게 되고, 이때 이 값을 pop 한 후 1번 인덱스를 사용하면 된다.
 
-이제 원형에서 해당 문제를 생각해보자. 우리에겐 2가지 경우의 수가 있다.
+## 3. 문제
 
-1. 첫 번째 색을 고르는 경우
-    
-    → 2번, 마지막 번호의 색은 고를 수 없으므로 N-3 개에서 K-1개의 색을 고르는 조합
-    
-    (전체 N개에서 1번, 2번, N번째 제외하므로 N-3개, 이미 1번 색을 뽑았기 때문에 K-1개를 고른다.)
-    
-2. 첫 번째 색을 고르지 않는 경우
-    
-    → 나머지 N-1개에서 K개를 고르는 조합.
-    
+### 3.1 순회강연
 
-해당 조건을 통해 원형 조건을 해결해 줄 수 있다. 이 조건만 지켜준다면 나머지 조합은 직선에서의 경우의 수와 같게 된다.
+[백준 2109번: 순회강연](https://www.acmicpc.net/problem/2109)
 
-## 3. 코드
+그리디 알고리즘과 우선순위 큐를 결합한 문제이다.
+
+1. 입력받은 페이(p)와 날짜(d)를 튜플로 변환한 후 최대힙으로 만들어준다.
+2. 가장 페이가 높은 강연부터 pop한 후, 최대한 늦게 강연할 수 있는 날짜에 배정한다.
+3. 만약 강연하려는 날에 이미 다른 강연이 예정되어있다면, 한 날짜씩 줄여 최대한 늦은 날짜로 배정한다.
+4. 2 ~ 3의 과정을 반복한다.
+5. 최대 힙에 원소가 모두 없어졌다면 반복을 중단한다.
 
 ```python
 import sys
+import heapq
 read = sys.stdin.readline
 
-DIVINER = 1000000003
+N = int(read())
+max_pq = []
+schedules = [0 for _ in range(10001)]
+
+# 최대힙
+for _ in range(N):
+    p, d = map(int,read().split())  
+    heapq.heappush(max_pq,(-p ,d))
+
+while max_pq:
+    pay, due = heapq.heappop(max_pq)
+    
+    if schedules[due] == 0: # 비어있다면
+        schedules[due] = -pay
+    else: # 비어있지 않다면
+        while True:
+            due -= 1
+            if due <= 0:
+                break
+            if schedules[due] == 0:
+                schedules[due] = -pay
+                break
+
+    
+print(sum(schedules))
+```
+
+[백준 13904번: 과제](https://www.acmicpc.net/problem/13904)
+
+이 문제도 같은 알고리즘으로 풀이 가능하다.
+
+---
+
+### 3.2 가운데를 말해요
+
+[백준 13904번: 가운데를 말해요](https://www.acmicpc.net/problem/1655)
+
+숫자를 순서대로 입력받으면서 가운데 있는 숫자를 출력하는 문제이다.
+
+입력받은 숫자가 홀수갯수일 때는 정 가운데, 짝수 갯수일 때는 가운데 두 가지 숫자 중 작은 숫자를 출력한다.
+
+처음 해결 방법을 고안하기 쉽지 않은 문제였다. 최대힙과 최소힙 두 가지를 동시에 사용해야 한다.
+
+중간값보다 작은 값들은 **최대힙**에, 중간값보다 큰 값들은 **최소힙**에 저장한다. 이렇게 번갈아가면서 저장하면 최대힙의 0번 인덱스는 중간값이 된다.
+
+1. 최대힙, 최소힙을 준비한다.
+2. 두 힙의 길이가 똑같을 경우 최대힙에 원소를 추가한다
+3. 두 힙의 길이가 다를 경우 최소힙에 원소를 추가한다.
+4. 2번과 3번 과정을 마친 후 최대힙의 0번 인덱스와 최소힙의 0번 인덱스를 비교한다.
+5. 비교했을때 최대힙의 0번 인덱스가 더 작다면 두 원소를 각각의 힙에서 서로 교환한다.
+
+```python
+import sys
+import heapq
+read = sys.stdin.readline
 
 N = int(read())
-K = int(read())
+min_pq = []
+max_pq = []
 
-# 경우의 수
-# 1. 맨 앞의 색을 고르는 경우
-    # 1번 2번, 제일 마지막 색은 고를 수 없으므로 N-3 중 K-1개의 색 고르기(첫번째를 이미 골랐으므로 K-1개)
-# 2. 맨 앞의 색을 고르지 않는 경우
-    # 나머지 N-1개에서 K개 고르기
+for i in range(N):
+    num = int(read())
+    if len(min_pq) == len(max_pq):
+        heapq.heappush(max_pq, -num)
+    else:
+        heapq.heappush(min_pq, num)
 
-# dp -> dp[색상 갯수][고를 색의 수]
-# 직선에서의 경우임.
-dp = [[0]* (N+1) for _ in range(N+1)]
-dp[1][0] = 1
-dp[1][1] = 1
+    if min_pq and min_pq[0] < -max_pq[0]:
+        max_value = heapq.heappop(max_pq)
+        min_value = heapq.heappop(min_pq)
 
-for i in range(2 ,N+1):
-    for j in range(1, N+1):
-        if j == 1: # 색을 하나만 고르는 경우는 전체 색상 갯수와 같음.
-            dp[i][j] = i
-        
-        elif i > j:
-            # i번째 색을 선택하지 않는 경우: i-1개의 색 중에서 j개를 선택하는 경우와 같음
-            # i번째 색을 선택하는 경우: i-2개의 색 중에서 j-1개를 선택하는 경우의 수
-            dp[i][j] = dp[i-2][j-1] + dp[i-1][j]
-
-if K == 1:
-    print(N)
-else:
-    print((dp[N-3][K-1] + dp[N-1][K])%DIVINER)
-
+        heapq.heappush(max_pq, -min_value)
+        heapq.heappush(min_pq, -max_value)
+    
+    print(-max_pq[0])
 ```
