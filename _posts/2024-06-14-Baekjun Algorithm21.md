@@ -78,7 +78,7 @@ for _ in range(tests):
 
 ### 2.1 발상
 
-이전에 풀었던 [과제]([https://astro-yu.github.io/posts/Baekjun-Algorithm20/#23-과제](https://astro-yu.github.io/posts/Baekjun-Algorithm20/#23-%EA%B3%BC%EC%A0%9C)) 문제와 유사한 문제라고 생각했다.
+이전에 풀었던 [과제](https://astro-yu.github.io/posts/Baekjun-Algorithm20/#23-%EA%B3%BC%EC%A0%9C) 문제와 유사한 문제라고 생각했다.
 
 기존 코드
 
