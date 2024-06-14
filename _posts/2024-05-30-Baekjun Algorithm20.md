@@ -1,5 +1,5 @@
 ---
-title: "[백준] 그리디 알고리즘"
+title: "[백준] 그리디 알고리즘 <1>"
 date: 2024-05-30 19:22:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
