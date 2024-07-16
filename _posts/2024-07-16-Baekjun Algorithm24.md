@@ -4,7 +4,7 @@ date: 2024-07-16 19:50:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
 tags: [python, algorithm, queue, dfs, bfs, dp, memoization]
-image: /assets/baekjun.png
+image: /assets/baekjun.png  
 use_math: true
 ---
 풀었던 DFS 문제 중 개인적으로 어려웠던 문제들을 정리해보았다.   
