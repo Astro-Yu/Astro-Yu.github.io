@@ -9,185 +9,212 @@ use_math: true
 ---
 풀었던 다익스트라 문제 중 개인적으로 어려웠던 문제들을 정리해보았다.   
 
-## 3. 피리 부는 사나이
+## 1. 집 구하기
 
-[백준 16724번: 피리 부는 사나이](https://www.acmicpc.net/problem/16724)
+[백준 13911번: 집 구하기](https://www.acmicpc.net/problem/13911)
 
-난이도 골드 3의 문제이다.
+난이도 골드2 의 다익스트라 문제이다.
 
-문제의 설명은 꽤나 복잡하지만 하나하나 뜯어보면 결국 맵에 존재하는 사이클의 숫자를 세는 문제이다. (하나의 사이클 안에 존재하는 장판은 모두 한 곳으로 수렴하기 때문.)
+### 1.1 발상
 
-### 3.1 발상
+처음엔 반복문을 통해 모든 도시에서 맥날까지의 거리, 스타벅스까지의 거리를 구해 두 개의 합 중 가장 작은 값을 구하려 했다.
 
-맵에 존재하는 총 사이클의 갯수를 구하기 위해 union-find를 사용했다. 발상은 다음과 같다.
+하지만 이 방식대로면 시간초과가 나온다. 다익스트라 함수를 도시의 숫자만큼 시도하게 되고, 그 이후 결과 리스트에 대해서도 반복문을 시도하기 때문이다.
 
-1. 2차원 좌표에 고유한 숫자를 부여(x * M + y 값을 부여했다. M은 가로길이)
-2. 모든 좌표를 반복문으로 확인하며, union-find 진행. (합쳐진다면 처음 시작좌표가 parent가 됨)
-3. 만약 해당 좌표가 이미 사이클에 포함됐다면 패스, 포함되지 않았다면 uf 진행.
+### 1.2 풀이
 
-주의할 점은 미방문지에서 사이클 찾기를 시작한 후, 진행하다가 다른 사이클에 편입되는 경우가 있다. 이 경우엔 바로 부모를 이어준 다음 종료해준다.
+문제를 풀 수 있는 결정적 발상은 바로 가상 노드를 연결하는 것이다.
 
-dfs와 uf를 적절하게 섞어서 활용하는 방법에 꽤나 고전했다.
+1. 모든 스타벅스가 있는 도시와 양방향 거리가 0인 가상 노드 1을 연결한다.
+2. 모든 맥도날드가 있는 도시와 양방향 거리가 0인 가상 노드 2를 연결한다.
 
-### 3.2 코드
+이렇게 거리 0인 가상노드를 연결해두면, 해당 위치들을 시작지점으로 삼을 수 있기에 다익스트라 2번이면 해결된다. 
 
-```python
-import sys
-read = sys.stdin.readline
-# dfs 로 사이클 찾기
-# 사이클의 수 = safe존의 수
+이때 주의할 점은 가상노드와 연결된 길은 가짜 길이기 때문에 다익스트라로 최단거리를 구할 때 사용하면 안된다.
 
-N, M = map(int,read().split())
-graph = list(list(read().strip()) for _ in range(N))
-visited = list(list(False for _ in range(M)) for _ in range(N))
-uf = [i for i in range(N*M)]
+처음 보고 굉장히 놀라운 발상이라고 생각했다. 문제를 많이 풀어보면서 이런 발상에 대한 감을 익혀야겠다.
 
-def two_d_to_one_d(node: list):
-    n_x, n_y = node
-    return n_x * M + n_y
-
-def find(x):
-    if uf[x] != x:
-        uf[x] = find(uf[x])
-
-    return uf[x]
-
-def union(a, b):
-    a = find(a)
-    b = find(b)
-
-    if a < b:
-        uf[b] = a
-
-    else:
-        uf[a] = b
-
-def get_next_position(node: list, input: str):
-    n_x, n_y = node
-
-    if input == "U":
-        return [[n_x-1, n_y]]
-    
-    elif input == "D":
-        return [[n_x+1, n_y]]
-    
-    elif input == "R":
-        return [[n_x, n_y+1]]
-    
-    elif input == "L":
-        return [[n_x, n_y-1]]
-    
-    
-def find_cycle(node: list):
-    c_x, c_y = node
-    current_node = two_d_to_one_d(node)
-    visited[c_x][c_y] = True
-    for n_x, n_y in get_next_position(node, graph[c_x][c_y]):
-        next_node = two_d_to_one_d([n_x, n_y])
-   
-        if not visited[n_x][n_y]: # 다음 방문지가 아직 미방문일 경우
-            union(current_node, next_node) # 부모를 합쳐줌
-            find_cycle([n_x, n_y])
-        
-        if visited[n_x][n_y]: # 다음이 방문지일 경우
-            union(current_node, next_node) # 부모를 합쳐줌 
-            visited[n_x][n_y] = True
-            break # 바로 정지
-
-for i in range(N):
-    for j in range(M):
-        if not visited[i][j]:
-            find_cycle([i,j])
-
-print(len(set(uf)))
-```
-
-## 4. 게임
-
-[백준 1103번: 게임](https://www.acmicpc.net/problem/1103)
-
-난이도 골드2의 문제이다.
-
-2차원 좌표에서 좌표에 쓰여진 숫자만큼 상 하 좌 우 로 움직일 수 있으며, 중간에 보드에 존재하는 구멍에 빠지거나, 보드를 벗어난다면 게임이 종료된다.
-
-이때 가장 많이 움직일 수 있는 횟수를 구하는 문제이다.
-
-### 3.1 발상
-
-단순히 dfs를 이용해서 가장 많이 움직인 횟수를 구하는 문제라고 생각했지만, 그렇게 푼다면 높은 확률로 시간 초과를 받는다.
-
-DP를 이용한 메모이제이션을 적극적으로 사용해 풀어야 한다. 
-
-이유는 특정 칸에서 움직일 수 있는 다음 칸은 제한적이고(바닥에 쓰여진 숫자만큼만 움직여야 하므로 루트가 제한적이다.), 이때 적은 숫자로 해당 칸에 도착했으면 더 앞으로 진행할 필요가 없기 때문이다.
-
-또한 사이클이 존재한다면 -1를 출력해야 하기 때문에 이 부분도 생각해야한다.
-
-### 3.2 코드
+### 1.3 코드
 
 ```python
 import sys
-sys.setrecursionlimit(10**5)
+import heapq
+import math
 read = sys.stdin.readline
-N, M = map(int,read().split())
-board = list(list(read().strip()) for _ in range(N))
-visited = list(list(False for _ in range(M)) for _ in range(N))
-dp = list(list(0 for _ in range(M)) for _ in range(N))
-# 구멍에 빠지거나 박스 바깥을 벗어나지 않는 경우의 수 중 최대 이동 횟수 
 
-def out_of_box(x, y):
-    if x < 0 or x >= N or y < 0 or y >= M:
-        return True
-    
-    return False
+V, E = map(int, read().split())
+graph = [[] for _ in range(V+3)]
 
-def is_whole(x, y): # 구멍이면 True
-    if board[x][y] == "H":
-        return True
-    
-    return False
+for _ in range(E):
+    u, v, w = map(int, read().split())
+    graph[u].append((v, w))
+    graph[v].append((u, w))
 
-def get_next_position(current: list):
-    c_x, c_y = current
-    d = int(board[c_x][c_y])
+# M = 맥날의 수
+# x = 맥세권 조건
+M, x = map(int, read().split())
+Mcs = list(map(int, read().split())) # 맥날 정점들
+S, y = map(int, read().split())
+Sbs = list(map(int, read().split())) # 스벅 정점들
 
-    up = [c_x - d, c_y]
-    down = [c_x + d, c_y]
-    left = [c_x, c_y - d]
-    right = [c_x, c_y + d]
+# 맥날과 스벅이 있는 자리는 집이 있지 못함.
+# 한 정점에 맥날과 스벅이 같이 있지 못함.
+# 집이 있는 정점이 반드시 하나 존재함.
 
-    return [up, down, left, right]
+# 목표
+# 맥날과 거리가 x 이하, 스벅과 거리가 y 이하인 집이면서, 두 가게와의 거리의 합이 최소인 집
 
-max_count = 0
-is_cycle = False
-def dfs(node: list, count):
-    global max_count
-    global is_cycle
-    c_x, c_y = node
-    dp[c_x][c_y] = count
-    max_count = max(max_count, count)
+# 모든 맥날과 이어져있는 더미노드 맥날더미 생성
+# 모든 스벅과 이어져있는 더미노드 스벅더미 생성
+# 이후 각 집까지의 거리를 구함. 이때 더미를 만들때 생성한 노드는 사용하면 안됨
+mc_dummy = V+1
+sb_dummy = V+2
 
-    for nexts in get_next_position(node):
-        n_x, n_y = nexts
+for mc in Mcs: # 더미노드와 이어줌
+    graph[mc_dummy].append((mc, 0))
+    graph[mc].append((mc_dummy, 0))
 
-        if out_of_box(n_x, n_y) or is_whole(n_x, n_y): # 박스 바깥으로 나가거나 구멍을 만나면
+for sb in Sbs: # 더미노드와 이어줌
+    graph[sb_dummy].append((sb, 0))
+    graph[sb].append((sb_dummy, 0))
+
+def dijkstra(start: int):
+    dists = [math.inf for _ in range(V+3)]
+    dists[start] = 0
+    pq = [(0, start)]
+
+    while pq:
+        current_weight, current_node = heapq.heappop(pq)
+
+        if dists[current_node] < current_weight:
             continue
-        
-        elif dp[n_x][n_y] > count: # 이동횟수가 현재 칸의 이동횟수보다 작다면 지나감
-            continue
 
-        elif visited[n_x][n_y]: # 사이클이 있음. 거기서 종료
-            is_cycle = True
-            break
-        
-        elif not visited[n_x][n_y]: # 다음이 이동하지 않은 곳이라면
-            visited[n_x][n_y] = True
-            dfs([n_x, n_y], count+1)
-            visited[n_x][n_y] = False # 초기화
+        for next in graph[current_node]:
+            next_node, next_weight = next
 
-dfs([0,0], 1)
+            if next_node == V+1 or next_node == V+2: # 다음 노드가 가상노드로 이어져 있다면 패스
+                continue
 
-if is_cycle:
+            new_weight = current_weight + next_weight
+
+            if dists[next_node] > new_weight:
+                dists[next_node] = new_weight
+                heapq.heappush(pq,(new_weight, next_node))
+
+    return dists
+
+mc_dists = dijkstra(V+1)
+sb_dists = dijkstra(V+2)
+
+min_dist = math.inf
+
+for town in range(1, V+1):
+    if town in Sbs+Mcs: # 마을에 맥이나 스벅이 있으면 패스
+        continue
+
+    if mc_dists[town] <= x and sb_dists[town] <= y:
+        min_dist = min(min_dist, mc_dists[town]+sb_dists[town])
+
+if min_dist > 1e9:
     print(-1)
 else:
-    print(max_count)
+    print(min_dist)
 ```
+
+## 2. 인터넷 설치
+
+[백준 1800번: 인터넷 설치](https://www.acmicpc.net/problem/1800)
+
+난이도 골드1의 다익스트라 문제이다.
+
+### 2.1 발상
+
+까다로운 조건이 많아서 어려운 문제였다.
+
+인터넷 선을 연결해야 하는데 N번 컴퓨터가 인터넷에 연결되야 하는게 목적이다.
+
+이때 K개의 선은 무료로 연결해주고, 남은 선들의 가격 중에 가장 비싼 선에 대해서만 가격을 받는다.
+
+이때 최소의 가격으로 N번 컴퓨터와 연결하는 경우를 찾아야 한다.
+
+솔직하게 말하면 문제를 시도하지도 못했다. 어떻게 K+1 번째가 가장 싼 선인 경우를 걸러내야 할 지 몰랐기 때문이다.
+
+### 2.2 풀이
+
+해답은 이분탐색을 통해 값을 탐색해나가며 해당 값보다 비싼 선의 갯수를 세야했다.
+
+limit 값이 다익스트라 함수에 주어지고, 탐색에 활용된 간선의 값이 limit보다 크다면 1을 추가한다.
+
+탐색에 활용된 간선의 값이 limit 보다 작다면 추가하지 않는다.
+
+이렇게 계산해나가면서 마지막에 dists[N] 값이 K보다 크다면 limit 값 이하로 경로를 구성하기 불가능하다는 것이므로(비싼 선이 K개보다 많다는 뜻) False를 리턴해 이분탐색에서 오른쪽을 탐색하게 한다.
+
+그 이외라면 True를 내보내 이분탐색에서 왼쪽을 탐색하게 한다.
+
+### 2.3 코드
+
+```python
+import sys
+import heapq
+import math
+read = sys.stdin.readline
+
+# 목표: N번 컴퓨터를 연결하는데까지 소모되는 최소 비용
+# K개의 선은 공짜
+# 나머지 인터넷 선 중 가장 비싼 선만 가격을 받음
+# 마지막 N에 limit인 가격 초과의 선들이 몇개 있는지 확인
+
+N, P, K = map(int,read().split())
+graph = [[] for _ in range(N+1)]
+
+for _ in range(P):
+    a, b, cost = map(int,read().split())
+    graph[a].append((b, cost))
+    graph[b].append((a, cost))
+
+def dijkstra(start, limit):
+    pq = [(0, start)]
+    dists = [math.inf] * (N+1)
+    dists[start] = 0 # 길이
+
+    while pq:
+        cost, idx = heapq.heappop(pq)
+        if dists[idx] < cost:
+            continue
+
+        for next in graph[idx]:
+            next_idx, next_cost = next
+            if next_cost > limit: # 다음번 선을 잇는 가격이 제한 가격보다 크다면
+                if cost + 1 < dists[next_idx]:
+                    dists[next_idx] = cost + 1
+                    heapq.heappush(pq, (cost + 1, next_idx))
+            else:
+                if cost < dists[next_idx]:
+                    dists[next_idx] = cost
+                    heapq.heappush(pq, (cost, next_idx))
+
+    if dists[N] > K: # 타겟에 limit 가격 이상의 N개 초과하는 선이 있을 경우
+        return False
+    else:
+        return True
+
+left, right = 0, 1000001
+answer = math.inf
+
+while left <= right:
+    mid = (right + left) // 2
+    is_exist = dijkstra(1, mid)
+
+    if is_exist:
+        right = mid - 1
+        answer = mid
+    else:
+        left = mid + 1
+
+if answer > 1e10:
+    print(-1)
+else:
+    print(answer)
+```
+
+*~~(솔직히 이 문제는 골드1 보다 어려운듯)~~*
