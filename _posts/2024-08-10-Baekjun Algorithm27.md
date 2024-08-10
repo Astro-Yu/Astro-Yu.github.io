@@ -1,6 +1,6 @@
 ---
 title: "[백준] 최소 신장 트리"
-date: 2024-08-01 17:51:00 +09:00 # 시간
+date: 2024-08-10 20:50:00 +09:00 # 시간
 categories: [Algorithm]
 published: true
 tags: [python, algorithm, queue, kruskal, prim, greedy]
