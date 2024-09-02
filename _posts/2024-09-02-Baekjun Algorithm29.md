@@ -55,16 +55,15 @@ for i in range(1, N+1):
         queue.append(i) # 스택에 추가
 
 while queue:
-		current = queue.popleft() # 하나씩 뽑아 사용하는 것으로 순서를 지킬 수 있음.
-		
-		for next in techs[current] # 다음 진행 가능성이 있는 과목들을 불러옴
-				# 원하는 작업들 수행 ex) 건설에 걸리는 시간 계산, 수업들 듣기 위한 학기 계산 등
-				
-				in_degree[next] -= 1 # 한번 선수과목이 수행될 때 마다 다음과목의 진입차수를 1씩 제거
-		
-				if in_degree[next] == 0: # 진입차수가 0이 됐다면 = 선수과목을 모두 수행했다면
-            queue.append(next) # 큐에 추가한 후 반복
-		
+    current = queue.popleft() # 하나씩 뽑아 사용하는 것으로 순서를 지킬 수 있음.
+    
+    for next in techs[current] # 다음 진행 가능성이 있는 과목들을 불러옴
+        # 원하는 작업들 수행 ex) 건설에 걸리는 시간 계산, 수업들 듣기 위한 학기 계산 등
+        in_degree[next] -= 1 # 한번 선수과목이 수행될 때 마다 다음과목의 진입차수를 1씩 제거
+    
+    if in_degree[next] == 0: # 진입차수가 0이 됐다면 = 선수과목을 모두 수행했다면
+        queue.append(next) # 큐에 추가한 후 반복
+    
 ```
 
 핵심 알고리즘에 대해 주석을 달아 설명해두었다.
