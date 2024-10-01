@@ -137,3 +137,42 @@ i = 2, col = [0,1,3,0,0]
 https://www.youtube.com/watch?v=HRwFgtiqHH0
 
 https://www.youtube.com/watch?v=z4wKvYdd6wM&t=900s
+
+수정(24/10/1) 8달 지나서야 N-Queens를 다시 풀어보았다. 이하는 파이썬(pypy)로 통과하는 코드이다.
+```python
+import sys
+read = sys.stdin.readline
+
+# 목표: N개의 퀸이 주어졌을 때, N x N 체스판에서 만족하는 배치의 갯수
+# 기본조건: 같은 행에는 둘 수 없음
+# 조건1: 같은 열에는 둘 수 없음
+# 조건2: 대각선에는 둘 수 없음
+N = int(read())
+
+# i: 이전에 퀸이 두어진 곳
+# k: 다음행에 퀸이 두어질 곳
+def promising(i, col):
+    for k in range(i):
+        if col[i] == col[k] or abs(col[i] - col[k]) == (i - k):
+            return False
+    
+    return True
+
+answer = 0
+col = [0] * N
+
+def n_queens(i, col):
+    global answer
+    if i == N: # 끝까지 탐사
+        answer += 1
+        return
+
+    for j in range(N):
+        col[i] = j
+        if promising(i, col):
+            n_queens(i+1, col)
+
+n_queens(0, col)
+print(answer)
+```
+인터넷에서 찾아보니 변수위치, 함수위치 등등에 의해 통과하지 못하는 경우도 있는 모양이다. 이번 코드는 통과했다.
