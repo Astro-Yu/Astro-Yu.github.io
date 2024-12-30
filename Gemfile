@@ -2,6 +2,9 @@
 
 source "https://rubygems.org"
 
+# Ruby 버전 명시 추가
+ruby "~> 3.1.0"
+
 gemspec
 
 group :test do
