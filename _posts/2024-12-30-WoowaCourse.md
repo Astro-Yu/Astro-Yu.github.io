@@ -1,6 +1,6 @@
 ---
 title: "[우아한 테크코스] 우아한 테크코스 7기 백엔드 합격"
-date: 2024-11-30 17:45:00 +09:00 # 시간
+date: 2024-12-30 17:45:00 +09:00 # 시간
 categories: [Woowa]
 published: true
 tags: [woowa, java, backend]
