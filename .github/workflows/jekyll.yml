@@ -50,6 +50,8 @@ jobs:
       - name: Upload artifact
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@main
+        with:
+          path: '_site'  # Jekyll이 빌드한 결과물 경로
 
   # Deployment job
   deploy:
