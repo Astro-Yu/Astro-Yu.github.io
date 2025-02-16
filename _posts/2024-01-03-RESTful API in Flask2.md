@@ -16,7 +16,7 @@ Flask 설치나 기본 설정 같은건 다른 블로그에 많으니 여기서�
 
 ### 4.1 app.py
 
-만약 Flask를 아무런 설정 없이 시작한다면 [`app.py`](http://app.py) 라는 이름의 파일을 제일 먼저 찾아서 실행시킨다고 한다. 그렇기에 input과 output에 대한 코드를 서버 실행시 가장 먼저 실행되게 이 곳에 작성했다.
+만약 Flask를 아무런 설정 없이 시작한다면 `app.py` 라는 이름의 파일을 제일 먼저 찾아서 실행시킨다고 한다. 그렇기에 input과 output에 대한 코드를 서버 실행시 가장 먼저 실행되게 이 곳에 작성했다.
 
 ```python
 from flask import Flask, request, render_template
