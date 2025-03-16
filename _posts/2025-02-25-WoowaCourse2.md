@@ -3,7 +3,7 @@ title: "[우아한 테크코스] 우아한 테크코스 2주차 회고"
 date: 2025-02-25 20:43:00 +09:00 # 시간
 categories: [Woowa]
 published: true
-tags: [woowa, java, retrospect]
+tags: [woowa, retrospect]
 image: /assets/woowa.jpg 
 use_math: true
 ---  
