@@ -4,7 +4,7 @@ date: 2025-04-08 22:50:00 +09:00 # 시간
 categories: [Woowa]
 published: true
 tags: [woowa, retrospect]
-image: /assets/javaLogo.png
+image: /assets/woowa.jpg
 use_math: true  
 ---  
 
