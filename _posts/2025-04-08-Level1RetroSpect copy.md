@@ -5,7 +5,7 @@ categories: [Woowa]
 published: true
 tags: [woowa, retrospect]
 image: /assets/javaLogo.png
-use_math: true
+use_math: true  
 ---  
 
 4월 4일 금요일로 우아한 테크코스 7기 Level1 과정이 끝났다. 프로그래밍을 제대로 배운 것은 처음이었고, 할 일도 엄청나게 많았지만 다시 돌아보니 매우 재미있었다. 크루들과 만나고, 프로그래밍을 하는 과정이 너무 즐거워서 잠실 캠퍼스에 등교하는 것이 기다려졌을 정도다. 이번 글에서 레벨1이 어떻게 지나갔는지 짧게 회고해본다.
