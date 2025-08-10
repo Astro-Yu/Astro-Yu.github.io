@@ -1,5 +1,5 @@
 ---
-title: "[SpringBoot] 실시간 알림을 위한 SSE, 트러블 슈팅
+title: "[SpringBoot] 실시간 알림을 위한 SSE, 트러블 슈팅"
 date: 2025-08-10 16:50:00 +09:00 # 시간
 categories: [SrpingBoot]
 published: true
