@@ -70,7 +70,7 @@ SSE 통신은 다음과 같은 흐름으로 이루어진다.
 
 Java에서는 `SseEmitter API`를 제공해 손쉽게 `SSE`를 구현할 수 있다.
 
-### `Subscribe`
+### Subscribe
 
 먼저 클라이언트가 SSE 통신을 요청하는 컨트롤러 메서드를 만든다. 이것을 `Subscribe`라고 한다.
 
@@ -89,7 +89,7 @@ Java에서는 `SseEmitter API`를 제공해 손쉽게 `SSE`를 구현할 수 있
 
 같은 코드가 추가됐는데, 이는 추후에 설명하도록 한다.
 
-### `sseNotificationService.subscribe()`
+### sseNotificationService.subscribe()
 
 서비스에서는 구독시, sseEmitter를 만든 후 여러 처리를 해서 내보낸다.
 
