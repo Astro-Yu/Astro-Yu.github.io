@@ -180,7 +180,7 @@ Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection i
 
 nginx에는 여러 기능이 있지만, 우리는 ssl 인증서를 발급받아 https 통신을 사용하기 위해 도입했다.
 
-문제 상황:
+***문제 상황:***
 
 구독 시에 서버 로그에서는 제대로 200 응답을 내보내고 있었지만, 클라이언트 쪽에서는 500, 혹은 pending이 계속되다가 취소되었다. 덕분에 스프링 앱이나 클라이언트의 문제가 아닌, 그 중간 네트워크 단계의 문제라고 인식했다.
 
