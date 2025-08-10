@@ -94,14 +94,14 @@ Java에서는 `SseEmitter API`를 제공해 손쉽게 `SSE`를 구현할 수 있
 서비스에서는 구독시, sseEmitter를 만든 후 여러 처리를 해서 내보낸다.
 
 ```java
-		private static final long VALID_TIME = 10 * 60 * 1000L;
+	private static final long VALID_TIME = 10 * 60 * 1000L;
 		
-		// 동시성을 고려하여 Thread-safe한 map 자료구조인 ConcurrentHashMap를 사용한다.
-		private final Map<Long, SseEmitter> emitters = new ConcurrentHashMap<>();
+	// 동시성을 고려하여 Thread-safe한 map 자료구조인 ConcurrentHashMap를 사용한다.
+	private final Map<Long, SseEmitter> emitters = new ConcurrentHashMap<>();
 
     public SseEmitter subscribe(Long userId) {
 		    
-		    // SseEmitter를 유효시간을 설정한 후 생성한다.
+		// SseEmitter를 유효시간을 설정한 후 생성한다.
         SseEmitter emitter = new SseEmitter(VALID_TIME);
 				
         emitters.put(userId, emitter);
@@ -111,12 +111,12 @@ Java에서는 `SseEmitter API`를 제공해 손쉽게 `SSE`를 구현할 수 있
         // 아무도 사용하지 않게 된 유령 emitter를 정리하는 역할
         emitter.onTimeout(() -> emitters.remove(userId));
 	       
-	      // 연결이 완료되는 모든 경우. onTimeoout을 포함하고 있음.
-	      // 정상적인 완료, 클라이언트측의 종료, 네트워크 오류, 타임아웃 등등 시 발동한다.
-	      // 메모리 누수 방지를 위한 확실한 뒷정리
+        // 연결이 완료되는 모든 경우. onTimeoout을 포함하고 있음.
+        // 정상적인 완료, 클라이언트측의 종료, 네트워크 오류, 타임아웃 등등 시 발동한다.
+        // 메모리 누수 방지를 위한 확실한 뒷정리
         emitter.onCompletion(() -> emitters.remove(userId));
 				
-				// 연결 직후 아무 데이터나 보내준다.
+        // 연결 직후 아무 데이터나 보내준다.
         sendToClient(userId, "connect", "Connection success");
 
         return emitter;
@@ -124,7 +124,7 @@ Java에서는 `SseEmitter API`를 제공해 손쉽게 `SSE`를 구현할 수 있
     
     // 클라이언트에게 실제 데이터를 전송한다.
     public void sendToClient(Long userId, String eventName, Object data) {
-		    // id로 emitter를 찾아온다.
+        // id로 emitter를 찾아온다.
         SseEmitter emitter = emitters.get(userId);
         if (emitter != null) {
             try {
