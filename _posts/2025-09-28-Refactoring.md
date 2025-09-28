@@ -4,7 +4,7 @@ date: 2025-09-28 16:30:00 +09:00 # 시간
 categories: [Refactoring]
 published: true
 tags: [woowa, java, springboot, refactor, facade, eventlistener]
-image: /assets/spring.webp
+image: /assets/refactor.png
 use_math: true
 ---  
 
