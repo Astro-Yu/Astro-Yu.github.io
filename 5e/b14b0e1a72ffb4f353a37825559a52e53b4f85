@@ -1,0 +1,14 @@
+_posts/2026-11-18-Retro3.md
+  h_09d9451df330ee 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5eb14b0e1a72ffb4f353a37825559a52e53b4f85",
+  "prompts": {},
+  "humans": {
+    "h_09d9451df330ee": {
+      "author": "yush <yush2202@gmail.com>"
+    }
+  }
+}
